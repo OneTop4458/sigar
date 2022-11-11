@@ -298,7 +298,7 @@ static int get_ram(sigar_t *sigar, sigar_mem_t *mem)
 
 #define MEMINFO_PARAM(a) a ":", SSTRLEN(a ":")
 
-static SIGAR_INLINE sigar_uint64_t sigar_meminfo(char *buffer,
+static sigar_uint64_t sigar_meminfo(char *buffer,
                                                  char *attr, int len)
 {
     sigar_uint64_t val = 0;
@@ -534,7 +534,7 @@ int sigar_loadavg_get(sigar_t *sigar,
  * there is also the "Tgid" field in /proc/self/status which could be used
  * to detect threads, but this is not available in older kernels.
  */
-static SIGAR_INLINE int proc_isthread(sigar_t *sigar, char *pidstr, int len)
+static int proc_isthread(sigar_t *sigar, char *pidstr, int len)
 {
     char buffer[BUFSIZ], *ptr=buffer;
     int fd, n, offset=sigar->proc_signal_offset;
@@ -769,7 +769,7 @@ int sigar_proc_mem_get(sigar_t *sigar, sigar_pid_t pid,
     return SIGAR_OK;
 }
 
-SIGAR_INLINE sigar_uint64_t get_named_proc_token(char *buffer,
+sigar_uint64_t get_named_proc_token(char *buffer,
                                                  char *token) {
   char *ptr = strstr(buffer, token);
   if (!ptr) {
@@ -1503,7 +1503,7 @@ int sigar_file_system_usage_get(sigar_t *sigar,
     return SIGAR_OK;
 }
 
-static SIGAR_INLINE char *cpu_info_strval(char *ptr)
+static char *cpu_info_strval(char *ptr)
 {
     if ((ptr = strchr(ptr, ':'))) {
         ptr++;
@@ -1513,7 +1513,7 @@ static SIGAR_INLINE char *cpu_info_strval(char *ptr)
     return NULL;
 }
 
-static SIGAR_INLINE void cpu_info_strcpy(char *ptr, char *buf, int len)
+static void cpu_info_strcpy(char *ptr, char *buf, int len)
 {
     int slen;
     ptr = cpu_info_strval(ptr);
@@ -1684,7 +1684,7 @@ int sigar_cpu_info_list_get(sigar_t *sigar,
     return SIGAR_OK;
 }
 
-static SIGAR_INLINE unsigned int hex2int(const char *x, int len)
+static unsigned int hex2int(const char *x, int len)
 {
     int i;
     unsigned int j;
@@ -1825,7 +1825,7 @@ int sigar_net_interface_stat_get(sigar_t *sigar, const char *name,
     return found ? SIGAR_OK : ENXIO;
 }
 
-static SIGAR_INLINE void convert_hex_address(sigar_net_address_t *address,
+static void convert_hex_address(sigar_net_address_t *address,
                                              char *ptr, int len)
 {
     if (len > HEX_ENT_LEN) {
